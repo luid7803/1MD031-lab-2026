@@ -1,1 +1,107 @@
-Hello world
+<!DOCTYPE HTML>
+<html lang="en">
+   <head>
+       <title>BurgerOnline</title>
+       <meta charset="utf-8"/>
+   </head>
+   <body>
+    <header>
+        <h1>Välkommen till BurgerOnline</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Select burgir</h2>
+            <p>This is where you select your burger</p>
+            <nav>Menu Items</nav>
+        </section>
+
+        <section>
+            <div style="display: inline-block">
+                <h3>Regular burger</h3>
+                <img src="/img/regular_burger.jpg", style="width: 200px">
+                <ul>
+                    <li>Burger with meat and cheese and salad</li>
+                    <li>Conatins peanut and glutose</li>
+                    <li>Sides are not included in the price</li>
+                </ul>
+            </div>
+            <div style="display: inline-block">
+                <h3>Ugly burger</h3>
+                <img src="/img/ugly_burger.jpg", style="width: 200px">
+                <ul>
+                    <li>Regular burger, but ugly</li>
+                    <li>Contains all known allergens</li>
+                    <li>Eat at your own risk</li>
+                </ul>
+            </div>
+            <div style="display: inline-block">
+                <h3>Golden burger</h3>
+                <img src="/img/golden_burger.jpg", style="width: 200px">
+                <ul>
+                    <li>Regular burger, but made of gold</li>
+                    <li>Vegan, Lactose-free, nut-free, zero calories</li>
+                    <li>Made of solid gold, so strong teeth are needed</li>
+                </ul>
+            </div>
+        </section>
+        <section id="contact">
+            <h2>Delivery information</h2>
+            <form>
+                <p>
+                    <label for="firstname">Full name</label><br>
+                    <input type="text" id="firstname" name="fn" required="required" placeholder="First- and Last name">
+                </p>
+                <p>
+                    <label for="email">E-mail</label><br>
+                    <input type="email" id="email" name="em" required="required" placeholder="E-mail address">
+                </p>
+                <p>
+                    <label for="street">Street</label><br>
+                    <input type="text" id="street" name="st" placeholder="Street name">
+                </p>
+                <p>
+                    <label for="house">House</label><br>
+                    <input type="text" id="house" name="hs" placeholder="House number">
+                </p>
+                <h3>Please select your gender</h3>
+                <p>
+                    <label  for="male">Male</label><br>
+                    <input type="radio" id="male" name="m">
+                </p>
+                <p>
+                    <label  for="female">Female</label><br>
+                    <input type="radio" id="female" name="f">
+                </p>
+                <p>
+                    <label  for="other">Other</label><br>
+                    <input type="radio" id="other" name="or" checked="checked">
+                </p>
+            </form>
+
+            <h3>Payment method</h3>
+            <p>
+                <label for="payment">Please chose one: </label><be>
+                <select id="payment" name="pay">
+                    <option selected="selected">Card (debit/credit)</option>
+                    <option>Apple Pay</option>
+                    <option>Swish</option>
+                    <option>Bank transfer</option>
+                </select>
+            </p>
+            <button type="submit">
+                <img src="/img/delivery.png" style="width: 40px">
+                Place my order!
+            </button>
+        </section>
+
+        <section>
+            <h3>Customer information</h3>
+            <p>This is where you supply provide nice information</p>
+        </section>
+    </main>
+    <hr>
+    <footer>
+        &copy; Insane Burgers 2026
+    </footer>
+   </body>
+</html>
