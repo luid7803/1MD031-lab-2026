@@ -3,25 +3,24 @@
    <head>
        <title>BurgerOnline</title>
        <meta charset="utf-8"/>
+       <link rel="stylesheet" type="text/css" href="/css/style.css">
    </head>
    <body>
     <header>
-        <h1>Välkommen till BurgerOnline</h1>
+        <img src="/img/funny-header.jpg">
+        <h1>Welcome to BurgerShopOnline</h1>
     </header>
     <main>
-        <section>
-            <h2>Select burgir</h2>
-            <p>This is where you select your burger</p>
-            <nav>Menu Items</nav>
-        </section>
-
-        <section>
+        <section id="burgers">
+            <h2>Select burger</h2>
+            <p>This is where you select your burger<br></p>
+        <div class="burger-grid">
             <div style="display: inline-block">
                 <h3>Regular burger</h3>
                 <img src="/img/regular_burger.jpg", style="width: 200px">
                 <ul>
                     <li>Burger with meat and cheese and salad</li>
-                    <li>Conatins peanut and glutose</li>
+                    <li>Contains <span class="ingredients">peanut</span> and <span class="ingredients">glutose</span></li>
                     <li>Sides are not included in the price</li>
                 </ul>
             </div>
@@ -30,7 +29,7 @@
                 <img src="/img/ugly_burger.jpg", style="width: 200px">
                 <ul>
                     <li>Regular burger, but ugly</li>
-                    <li>Contains all known allergens</li>
+                    <li>Contains all known <span class="ingredients">allergens</span></li>
                     <li>Eat at your own risk</li>
                 </ul>
             </div>
@@ -39,11 +38,13 @@
                 <img src="/img/golden_burger.jpg", style="width: 200px">
                 <ul>
                     <li>Regular burger, but made of gold</li>
-                    <li>Vegan, Lactose-free, nut-free, zero calories</li>
-                    <li>Made of solid gold, so strong teeth are needed</li>
+                    <li>Vegan, <span class="ingredients">Lactose-free</span>, <span class="ingredients">nut-free</span>, zero calories</li>
+                    <li>Made of <span class="ingredients">solid gold</span>, so strong teeth are needed</li>
                 </ul>
             </div>
+        </div>
         </section>
+
         <section id="contact">
             <h2>Delivery information</h2>
             <form>
@@ -61,26 +62,26 @@
                 </p>
                 <p>
                     <label for="house">House</label><br>
-                    <input type="text" id="house" name="hs" placeholder="House number">
+                    <input type="number" id="house" name="hs" placeholder="House number">
                 </p>
                 <h3>Please select your gender</h3>
                 <p>
                     <label  for="male">Male</label><br>
-                    <input type="radio" id="male" name="m">
+                    <input type="radio" id="male" name="gender">
                 </p>
                 <p>
                     <label  for="female">Female</label><br>
-                    <input type="radio" id="female" name="f">
+                    <input type="radio" id="female" name="gender">
                 </p>
                 <p>
                     <label  for="other">Other</label><br>
-                    <input type="radio" id="other" name="or" checked="checked">
+                    <input type="radio" id="other" name="gender" checked="checked">
                 </p>
             </form>
 
             <h3>Payment method</h3>
             <p>
-                <label for="payment">Please chose one: </label><be>
+                <label for="payment">Please chose one: </label><br>
                 <select id="payment" name="pay">
                     <option selected="selected">Card (debit/credit)</option>
                     <option>Apple Pay</option>
