@@ -100,7 +100,6 @@ const ListOfBurgers = [
   new MenuItem("BBQ-Bacon burger", "/img/bbq_burger.jpg", 700, false, true)
 ];
 
-
 console.log(ListOfBurgers);
 
 export default {
