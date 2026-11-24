@@ -1,0 +1,31 @@
+[
+    {
+        "name": "Regular burger",
+        "kCal": 500,
+        "lactose": true,
+        "gluten": true,
+        "url": "/img/regular_burger.jpg"
+    },
+    {
+        "name": "Ugly burger",
+        "kCal": 5000,
+        "lactose": true,
+        "gluten": true,
+        "url": "/img/ugly_burger.jpg"
+
+    },
+    {
+        "name": "Golden burger",
+        "kCal": 0,
+        "lactose": false,
+        "gluten": false,
+        "url": "/img/golden_burger.jpg"
+    },
+    {
+        "name": "BBQ-Bacon burger",
+        "kCal": 700,
+        "lactose": false,
+        "gluten": true,
+        "url": "/img/bbq_burger.jpg"
+    }
+]

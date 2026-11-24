@@ -79,6 +79,7 @@
 
 <script>
 import Burger from '../components/OneBurger.vue'
+import menu from '../assets/menu.json'
 import io from 'socket.io-client'
 
 const socket = io("localhost:3000");
@@ -98,6 +99,8 @@ const ListOfBurgers = [
   new MenuItem("Golden burger", "/img/golden_burger.jpg", 0, false, false),
   new MenuItem("BBQ-Bacon burger", "/img/bbq_burger.jpg", 700, false, true)
 ];
+
+
 console.log(ListOfBurgers);
 
 export default {
@@ -107,7 +110,7 @@ export default {
   },
   data: function () {
     return {
-      burgers: ListOfBurgers
+      burgers: menu
     }
   },
   methods: {
