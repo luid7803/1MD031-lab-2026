@@ -10,60 +10,62 @@
         <div class="burger-grid">
             <Burger
               v-for="burger in burgers"
-              :key="burger.name"
-              :burger="burger"
+              v-bind:key="burger.name"
+              v-bind:burger="burger"
             />
         </div>
         </section>
 
         <section id="contact">
             <h2>Delivery information</h2>
-            <form>
+            <form id="orderForm">
                 <p>
-                    <label for="firstname">Full name</label><br>
-                    <input type="text" id="firstname" name="fn" required="required" placeholder="First- and Last name">
+                    <label for="fullName">Full name</label><br>
+                    <input type="text" id="fullName" v-model="fn" required="required" placeholder="First- and Last name">
                 </p>
                 <p>
                     <label for="email">E-mail</label><br>
-                    <input type="email" id="email" name="em" required="required" placeholder="E-mail address">
+                    <input type="email" id="email" v-model="em" required="required" placeholder="E-mail address">
                 </p>
                 <p>
                     <label for="street">Street</label><br>
-                    <input type="text" id="street" name="st" placeholder="Street name">
+                    <input type="text" id="street" v-model="st" placeholder="Street name">
                 </p>
                 <p>
                     <label for="house">House</label><br>
-                    <input type="number" id="house" name="hs" placeholder="House number">
+                    <input type="number" id="house" v-model="hs" placeholder="House number">
                 </p>
                 <h3>Please select your gender</h3>
                 <p>
                     <label  for="male">Male</label><br>
-                    <input type="radio" id="male" name="gender">
+                    <input type="radio" id="male" value="male" v-model="gender">
                 </p>
                 <p>
                     <label  for="female">Female</label><br>
-                    <input type="radio" id="female" name="gender">
+                    <input type="radio" id="female" value="female" v-model="gender">
                 </p>
                 <p>
                     <label  for="other">Other</label><br>
-                    <input type="radio" id="other" name="gender" checked="checked">
+                    <input type="radio" id="other" value="other" v-model="gender">
                 </p>
             </form>
 
             <h3>Payment method</h3>
             <p>
                 <label for="payment">Please chose one: </label><br>
-                <select id="payment" name="pay">
+                <select id="payment" v-model="pay">
                     <option selected="selected">Card (debit/credit)</option>
                     <option>Apple Pay</option>
                     <option>Swish</option>
                     <option>Bank transfer</option>
                 </select>
             </p>
-            <button type="submit">
+
+            <button type="submit" v-on:click="addOrder($event) ; printForms()">
                 <img src="/img/delivery.png" style="width: 40px">
                 Place my order!
             </button>
+
         </section>
 
         <section>
@@ -78,6 +80,7 @@
 </template>
 
 <script>
+
 import Burger from '../components/OneBurger.vue'
 import menu from '../assets/menu.json'
 import io from 'socket.io-client'
@@ -109,7 +112,14 @@ export default {
   },
   data: function () {
     return {
-      burgers: menu
+      burgers: menu,
+      fn: "",
+      em: "",
+      st: "",
+      hs: "",
+      gender: "other",
+      pay: "Card (debit/credit)"
+
     }
   },
   methods: {
@@ -125,6 +135,15 @@ export default {
                                 orderItems: ["Beans", "Curry"]
                               }
                  );
+                 /*alert("Order placed!")*/
+    },
+    printForms: function (event) {
+        console.log("Name:", this.fn);
+        console.log("E-mail:", this.em);
+        console.log("Street:", this.st);
+        console.log("House number:", this.hs);
+        console.log("Gender:", this.gender);
+        console.log("Payment method:", this.pay);
     }
   }
 }

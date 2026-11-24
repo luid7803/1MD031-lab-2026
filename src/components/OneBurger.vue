@@ -15,7 +15,12 @@ export default {
   name: 'OneBurger',
   props: {
     burger: Object
-  }
+  },
+  data: function() {
+    return {
+        amountOrdered: 0,
+    }
+  },
 }
 </script>
 
