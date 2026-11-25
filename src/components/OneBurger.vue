@@ -1,13 +1,22 @@
 <template>
-  <div style="display: inline-block">
-                <h3>{{ burger.name }}</h3>
-                <img :src="burger.url", style="width: 200px">
-                <ul>
-                    <li>{{ burger.kCal }} kCal</li>
-                    <li v-if="burger.lactose">Contains <span class="ingredients">lactose</span></li>
-                    <li v-if="burger.gluten">Contains <span class="ingredients">gluten</span></li>
-                </ul>
-            </div>
+  <div class="burgerItem">
+        <h3>{{ burger.name }}</h3>
+        <img :src="burger.url", style="width: 200px">
+        <ul>
+            <li>{{ burger.kCal }} kCal</li>
+            <li v-if="burger.lactose">Contains <span class="ingredients">lactose</span></li>
+            <li v-if="burger.gluten">Contains <span class="ingredients">gluten</span></li>
+        </ul>
+        <div class="counter">
+            <button class="counterButton" v-on:click="subAmount">
+                -
+            </button>
+            <span class="amount">{{ amountOrdered }}</span>
+            <button class="counterButton" v-on:click="addAmount">
+                +
+            </button>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -21,6 +30,16 @@ export default {
         amountOrdered: 0,
     }
   },
+  methods: {
+    addAmount: function () {
+        this.amountOrdered += 1
+    },
+    subAmount: function () {
+        if (this.amountOrdered > 0) {
+            this.amountOrdered += -1
+        }
+    }
+  }
 }
 </script>
 
@@ -50,5 +69,33 @@ export default {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 20px;
+}
+.burgerItem {
+    display: flex;
+    flex-direction: column;
+}
+.burgerItem h3,
+.burgerItem ul {
+    text-align: left;
+
+}
+.burgerItem img {
+    margin: 0 auto;
+}
+
+.counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: auto;
+}
+.counterButton {
+    
+    margin: 0;
+}
+.amount {
+    min-width: 25px;
+    text-align: center;
 }
 </style>
