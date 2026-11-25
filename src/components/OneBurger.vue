@@ -32,11 +32,15 @@ export default {
   },
   methods: {
     addAmount: function () {
-        this.amountOrdered += 1
-    },
+        this.amountOrdered += 1;
+        this.$emit("orderedBurgers", {name: this.burger.name, amount: this.amountOrdered}
+            );
+        },
     subAmount: function () {
         if (this.amountOrdered > 0) {
-            this.amountOrdered += -1
+            this.amountOrdered += -1;
+            this.$emit("orderedBurgers", {name: this.burger.name, amount: this.amountOrdered}
+            );
         }
     }
   }
@@ -45,40 +49,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.ingredients {
-    color: #ff5500;
-    font-weight: bold;
-}
 
-#burgers {
-    background-color: black;
-    color: white;
-    padding: 10px;
-    border: 4px dotted white;
-}
-
-#burgers p {
-    color: white;
-}
-#burgers div {
-    padding: 10px;
-    margin: 10px;
-    text-align: left;
-}
-.burger-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 20px;
-}
 .burgerItem {
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
-.burgerItem h3,
-.burgerItem ul {
-    text-align: left;
 
-}
 .burgerItem img {
     margin: 0 auto;
 }

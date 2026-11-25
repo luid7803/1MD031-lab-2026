@@ -12,6 +12,7 @@
               v-for="burger in burgers"
               v-bind:key="burger.name"
               v-bind:burger="burger"
+              v-on:orderedBurgers="addToOrder($event)"
             />
         </div>
         </section>
@@ -48,7 +49,7 @@
                     <label  for="other">Other</label><br>
                     <input type="radio" id="other" value="other" v-model="gender">
                 </p>
-            </form>
+            
 
             <h3>Payment method</h3>
             <p>
@@ -60,8 +61,20 @@
                     <option>Bank transfer</option>
                 </select>
             </p>
+            </form>
+            <h4>
+                Please select delivery location on the map.
+            </h4>
+            <div class="map-container">
+                <div id="map" v-on:click="addOrder">
+                </div>
+            </div>
 
-            <button type="submit" v-on:click="addOrder($event) ; printForms()">
+            <h4>
+                All done?
+            </h4>
+
+            <button type="submit" v-on:click="addToOrder($event) ; printForms()">
                 <img src="/img/delivery.png" style="width: 40px">
                 Place my order!
             </button>
@@ -118,7 +131,9 @@ export default {
       st: "",
       hs: "",
       gender: "other",
-      pay: "Card (debit/credit)"
+      pay: "Card (debit/credit)",
+
+      orderedBurgers: {}
 
     }
   },
@@ -144,7 +159,12 @@ export default {
         console.log("House number:", this.hs);
         console.log("Gender:", this.gender);
         console.log("Payment method:", this.pay);
+    },
+    addToOrder: function (event) {
+        this.orderedBurgers[event.name] = event.amount;
+        console.log(this.orderedBurgers);
     }
+
   }
 }
 </script>
@@ -174,10 +194,13 @@ main, header, footer, nav ul {
 }
 main {
     background-color: bisque;
+    max-width: calc(80rem - 40px);
+    padding: 20px;
+    margin-top: 20px;
 }
 
 section {
-    margin: 20px;
+    margin: 0 0 20px 0;
 }
 
 /* nav ul li {
@@ -240,22 +263,18 @@ nav li {
 #burgers {
     background-color: black;
     color: white;
-    padding: 10px;
+    padding: 10px 10px 30px 10px;
     border: 4px dotted white;
 }
 
 #burgers p {
     color: white;
 }
-#burgers div {
-    padding: 10px;
-    margin: 10px;
-    text-align: left;
-}
+
 .burger-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 20px;
+    grid-row-gap: 40px;
     justify-items: center;
 }
 #contact {
@@ -274,4 +293,14 @@ button {
     margin: 20px 0;
 }
 
+#map {
+    background: url("/img/polacks.jpg");
+    width: 1920px;
+    height: 1078px;
+  }
+.map-container {
+    width: 100%;
+    height: 700px;
+    overflow: scroll;
+}
 </style>
