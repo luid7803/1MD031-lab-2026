@@ -28,14 +28,6 @@
                     <label for="email">E-mail</label><br>
                     <input type="email" id="email" v-model="em" required="required" placeholder="E-mail address">
                 </p>
-                <p>
-                    <label for="street">Street</label><br>
-                    <input type="text" id="street" v-model="st" placeholder="Street name">
-                </p>
-                <p>
-                    <label for="house">House</label><br>
-                    <input type="number" id="house" v-model="hs" placeholder="House number">
-                </p>
                 <h3>Please select your gender</h3>
                 <p>
                     <label  for="male">Male</label><br>
@@ -61,12 +53,16 @@
                     <option>Bank transfer</option>
                 </select>
             </p>
-            </form>
+            
             <h4>
                 Please select delivery location on the map.
             </h4>
             <div class="map-container">
-                <div id="map" v-on:click="addOrder">
+                <div id="map" v-on:click="setLocation">
+                    <div id="target" 
+                    v-bind:style="{ left: location.x + 'px', top: location.y + 'px'}">
+                    T
+                    </div>
                 </div>
             </div>
 
@@ -74,10 +70,11 @@
                 All done?
             </h4>
 
-            <button type="submit" v-on:click="addToOrder($event) ; printForms()">
+            <button type="button" v-on:click="placeOrder()">
                 <img src="/img/delivery.png" style="width: 40px">
                 Place my order!
             </button>
+            </form>
 
         </section>
 
@@ -128,12 +125,14 @@ export default {
       burgers: menu,
       fn: "",
       em: "",
-      st: "",
-      hs: "",
       gender: "other",
       pay: "Card (debit/credit)",
 
-      orderedBurgers: {}
+      orderedBurgers: {},
+      location: {
+        x: 0,
+        y: 0
+      },
 
     }
   },
@@ -141,29 +140,57 @@ export default {
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
     },
-    addOrder: function (event) {
-      var offset = {x: event.currentTarget.getBoundingClientRect().left,
-                    y: event.currentTarget.getBoundingClientRect().top};
+    /*addOrder: function (event) {
+      var offset = {
+        x: event.currentTarget.getBoundingClientRect().left,
+        y: event.currentTarget.getBoundingClientRect().top
+        };
+        this.location.x = event.clientX - 10 - offset.x;
+        this.location.y = event.clientY - 10 - offset.y;
+
+        
       socket.emit("addOrder", { orderId: this.getOrderNumber(),
                                 details: { x: event.clientX - 10 - offset.x,
                                            y: event.clientY - 10 - offset.y },
                                 orderItems: ["Beans", "Curry"]
                               }
                  );
-                 /*alert("Order placed!")*/
+                 /*alert("Order placed!")*
+    },*/
+    setLocation: function (event) {
+        var offset = {
+        x: event.currentTarget.getBoundingClientRect().left,
+        y: event.currentTarget.getBoundingClientRect().top
+        };
+        this.location.x = event.clientX - 10 - offset.x;
+        this.location.y = event.clientY - 10 - offset.y;
+
     },
-    printForms: function (event) {
-        console.log("Name:", this.fn);
-        console.log("E-mail:", this.em);
-        console.log("Street:", this.st);
-        console.log("House number:", this.hs);
-        console.log("Gender:", this.gender);
-        console.log("Payment method:", this.pay);
-    },
+
     addToOrder: function (event) {
         this.orderedBurgers[event.name] = event.amount;
-        console.log(this.orderedBurgers);
-    }
+    },
+
+    placeOrder: function (event) {
+        console.log("Name:", this.fn);
+        console.log("E-mail:", this.em);
+        console.log("Gender:", this.gender);
+        console.log("Payment method:", this.pay);
+        console.log("Ordered burgers:", this.orderedBurgers);
+
+        socket.emit("addOrder", { orderId: this.getOrderNumber(),
+                                details: { x: this.location.x,
+                                           y: this.location.y,
+                                           fn: this.fn,
+                                           em: this.em,
+                                           gender: this.gender,
+                                           pay: this.pay,
+                                        },
+                                orderItems: this.orderedBurgers,
+                              }
+                 );
+                 alert("Order placed!")
+    },
 
   }
 }
@@ -297,10 +324,24 @@ button {
     background: url("/img/polacks.jpg");
     width: 1920px;
     height: 1078px;
+    position: relative;
   }
 .map-container {
     width: 100%;
     height: 700px;
     overflow: scroll;
 }
+.map-container:hover {
+    cursor: crosshair;
+}
+
+#target {
+    position: absolute;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    width:20px;
+    height:20px;
+    text-align: center;
+  }
 </style>
