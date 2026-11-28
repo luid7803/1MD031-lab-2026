@@ -1,7 +1,7 @@
 <template>
   <div class="burgerItem">
         <h3>{{ burger.name }}</h3>
-        <img :src="burger.url", style="width: 200px">
+        <img :src="burger.url" style="width: 200px">
         <ul>
             <li>{{ burger.kCal }} kCal</li>
             <li v-if="burger.lactose">Contains <span class="ingredients">lactose</span></li>

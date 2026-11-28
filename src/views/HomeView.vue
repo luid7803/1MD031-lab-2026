@@ -6,7 +6,7 @@
     <main>
         <section id="burgers">
             <h2>Select burger</h2>
-            <p>This is where you select your burger<br></p>
+            <p>Please select a burger below. Fries are included with every burger.<br></p>
         <div class="burger-grid">
             <Burger
               v-for="burger in burgers"
@@ -19,7 +19,7 @@
 
         <section id="contact">
             <h2>Delivery information</h2>
-            <form id="orderForm">
+            <form id="orderForm" v-on:submit.prevent="placeOrder()">
                 <p>
                     <label for="fullName">Full name</label><br>
                     <input type="text" id="fullName" v-model="fn" required="required" placeholder="First- and Last name">
@@ -70,7 +70,7 @@
                 All done?
             </h4>
 
-            <button type="submit" v-on:click="placeOrder()">
+            <button type="submit">
                 <img src="/img/delivery.png" style="width: 40px">
                 Place my order!
             </button>
@@ -78,10 +78,6 @@
 
         </section>
 
-        <section>
-            <h3>Customer information</h3>
-            <p>This is where you supply provide nice information</p>
-        </section>
     </main>
     <hr>
     <footer>
@@ -140,23 +136,7 @@ export default {
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
     },
-    /*addOrder: function (event) {
-      var offset = {
-        x: event.currentTarget.getBoundingClientRect().left,
-        y: event.currentTarget.getBoundingClientRect().top
-        };
-        this.location.x = event.clientX - 10 - offset.x;
-        this.location.y = event.clientY - 10 - offset.y;
 
-        
-      socket.emit("addOrder", { orderId: this.getOrderNumber(),
-                                details: { x: event.clientX - 10 - offset.x,
-                                           y: event.clientY - 10 - offset.y },
-                                orderItems: ["Beans", "Curry"]
-                              }
-                 );
-                 /*alert("Order placed!")*
-    },*/
     setLocation: function (event) {
         var offset = {
         x: event.currentTarget.getBoundingClientRect().left,
@@ -178,7 +158,14 @@ export default {
         console.log("Payment method:", this.pay);
         console.log("Ordered burgers:", this.orderedBurgers);
 
-        socket.emit("addOrder", { orderId: this.getOrderNumber(),
+        const orderId = this.getOrderNumber();
+        socket.on("currentQueue", function (data) {
+            if (orderId in data.orders) {
+            window.location.reload();
+            }
+        });
+
+        socket.emit("addOrder", { orderId: orderId,
                                 details: { x: this.location.x,
                                            y: this.location.y,
                                            fn: this.fn,
@@ -191,6 +178,7 @@ export default {
                  );
                  alert("Order placed!")
     },
+    
 
   }
 }
@@ -229,13 +217,6 @@ main {
 section {
     margin: 0 0 20px 0;
 }
-
-/* nav ul li {
-    display: inline-block;
-    background-color: grey;
-    padding: 1em;
-    margin: 1em;
-} */
 
 header h1 {
     position: absolute;
