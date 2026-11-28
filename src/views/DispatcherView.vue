@@ -2,13 +2,9 @@
     <div id="orders">
       <div id="orderList">
         <div v-for="(order, key) in orders" v-bind:key="'order'+ key">
-          #{{ key }}: <span v-for="(amount, name) in order.orderItems" v-bind:key="name">
-            {{ name }}: {{ amount }}<br>
-          </span>
-          <p>Name: {{ order.details.fn }}</p>
-          <p>E-mail: {{ order.details.em }}</p>
-          <p>Gender: {{ order.details.gender }}</p>
-          <p>Payment: {{ order.details.pay }}</p>
+          #{{ key }}: <span v-for="(amount, name, index) in order.orderItems" v-bind:key="name"><span v-if="index > 0">, </span>{{ name }} ({{ amount }})</span>
+          <span><br>{{ order.details.fn }} ({{ order.details.gender }}, {{ order.details.em }}, {{ order.details.pay }})</span>
+          <hr style="border-top: dashed 1px">
         </div>
         <button v-on:click="clearQueue">Clear Queue</button>
       </div>
@@ -53,6 +49,7 @@
     position: absolute;
     z-index: 2;
     color:black;
+    font-size: 13px;
     background: rgba(255,255,255, 0.5);
     padding: 1em;
   }
@@ -69,8 +66,10 @@
   
   #dots div {
     position: absolute;
-    background: black;
+    background: green;
     color: white;
+    text-shadow: 1px 1px black;
+
     border-radius: 10px;
     width:20px;
     height:20px;

@@ -31,15 +31,15 @@
                 <h3>Please select your gender</h3>
                 <p>
                     <label  for="male">Male</label><br>
-                    <input type="radio" id="male" value="male" v-model="gender">
+                    <input type="radio" id="male" value="Male" v-model="gender">
                 </p>
                 <p>
                     <label  for="female">Female</label><br>
-                    <input type="radio" id="female" value="female" v-model="gender">
+                    <input type="radio" id="female" value="Female" v-model="gender">
                 </p>
                 <p>
                     <label  for="other">Other</label><br>
-                    <input type="radio" id="other" value="other" v-model="gender">
+                    <input type="radio" id="other" value="Other" v-model="gender">
                 </p>
             
 
@@ -47,7 +47,7 @@
             <p>
                 <label for="payment">Please chose one: </label><br>
                 <select id="payment" v-model="pay">
-                    <option selected="selected">Card (debit/credit)</option>
+                    <option selected="selected">Card</option>
                     <option>Apple Pay</option>
                     <option>Swish</option>
                     <option>Bank transfer</option>
@@ -70,7 +70,7 @@
                 All done?
             </h4>
 
-            <button type="button" v-on:click="placeOrder()">
+            <button type="submit" v-on:click="placeOrder()">
                 <img src="/img/delivery.png" style="width: 40px">
                 Place my order!
             </button>
@@ -125,8 +125,8 @@ export default {
       burgers: menu,
       fn: "",
       em: "",
-      gender: "other",
-      pay: "Card (debit/credit)",
+      gender: "Other",
+      pay: "Card",
 
       orderedBurgers: {},
       location: {
